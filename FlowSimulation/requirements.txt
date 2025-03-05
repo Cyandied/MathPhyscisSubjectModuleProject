@@ -1,0 +1,22 @@
+attrs==25.1.0
+contourpy==1.3.1
+cycler==0.12.1
+exceptiongroup==1.2.2
+fonttools==4.56.0
+h5py==3.13.0
+hypothesis==6.127.7
+kiwisolver==1.4.8
+llvmlite==0.44.0
+matplotlib==3.10.1
+numba==0.61.0
+numpy==2.1.3
+packaging==24.2
+pandas==2.2.3
+pillow==11.1.0
+pyparsing==3.2.1
+python-dateutil==2.9.0.post0
+pytz==2025.1
+rumdpy @ git+https://gitlab.com/tbs.cph/rumdpy-dev@fa208051f4b0ceb91a8389d183fe063356939c43
+six==1.17.0
+sortedcontainers==2.4.0
+tzdata==2025.1
