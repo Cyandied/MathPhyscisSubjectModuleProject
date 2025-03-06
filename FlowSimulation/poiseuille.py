@@ -17,7 +17,7 @@ import numpy as np
 import rumdpy as rp
 
 # Some system parameters
-nx, ny, nz = 6, 6, 10
+nx, ny, nz = 6, 6, 10 #nan, nan, width of channel
 rhoWall = 1.0
 rhoFluid = 0.7
 
@@ -60,9 +60,12 @@ relax.set_relaxation_from_types(particle_types=[1], temperature=[2.],
                                 relax_times=[0.01],configuration=configuration); 
 
 # Set the pair interactions
+# The siulation is solving newtons euqations, force from potential, for each particle
+# This sets paramaters for the potentials
+# Differences in pair-potential between fluid-wall and fluid-fluid changes the simulation
 pair_func = rp.apply_shifted_potential_cutoff(rp.LJ_12_6_sigma_epsilon)
-sig = [[1.0, 1.0, 0.0], [1.0, 1.0, 0.0], [0.0, 0.0, 0.0]]
-eps = [[1.0, 1.0, 0.0], [1.0, 1.0, 0.0], [0.0, 0.0, 0.0]]
+sig = [[1.0, 1.0, 0.0], [1.0, 1.0, 0.0], [0.0, 0.0, 0.0]] # Controls the minimum
+eps = [[1.0, 1.0, 0.0], [1.0, 1.0, 0.0], [0.0, 0.0, 0.0]] # How deep the well is
 cut = np.array(sig) * 2.5
 pair_pot = rp.PairPotential(pair_func, params=[sig, eps, cut], max_num_nbs=1000)
 
@@ -70,6 +73,7 @@ pair_pot = rp.PairPotential(pair_func, params=[sig, eps, cut], max_num_nbs=1000)
 configuration.randomize_velocities(temperature=2.0)
 
 # Setup integrator: NVT
+# Integrators dont actually integrate, they move time forwards
 integrator = rp.integrators.NVE(dt=0.005)
 
 # Compute plan
