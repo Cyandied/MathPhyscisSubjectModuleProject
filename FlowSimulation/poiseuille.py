@@ -12,6 +12,9 @@
 import random
 import os
 
+if "PBS_O_WORKDIR" in os.environ:
+    os.chdir(os.environ["PBS_O_WORKDIR"])
+
 import numpy as np
 
 import rumdpy as rp
