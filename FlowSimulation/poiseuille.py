@@ -1,13 +1,9 @@
-""" Example of a nanoslit pore simulation using tethered LJ particles 
+#Identifers:
 
-    The particles are tethered with a Hooke spring. The wall particles interact with a relaxation device.   
-    All particles are integrated forward in time with the NVE integrator
-
-    Wall density is set to 1.0 and fluid density to 0.8 - this is achieved by
-    inclusion of a dummy particle type 
-
-    Initial and final configurations are saved in xyz format for easy inspection in vmd
-"""
+#PBS -m b
+#PBS -W umask=002
+#PBS -l nodes=1:ppn=1
+#PBS -v PYTHONPATH
 
 import random
 import os
@@ -16,8 +12,11 @@ if "PBS_O_WORKDIR" in os.environ:
     os.chdir(os.environ["PBS_O_WORKDIR"])
 
 import numpy as np
-
 import rumdpy as rp
+
+#Timeblocks and steps
+num_timeblocks = 100
+steps_per_timeblock = 64
 
 # Some system parameters
 nx, ny, nz = 6, 6, 10 #nan, nan, width of channel
@@ -88,7 +87,7 @@ runtime_actions = [rp.ConfigurationSaver(),
 
 # Setup Simulation. Total number of time steps: num_blocks * steps_per_block
 sim = rp.Simulation(configuration, [pair_pot, tether, grav, relax], integrator, runtime_actions, 
-                    num_timeblocks=100, steps_per_timeblock=64,
+                    num_timeblocks=num_timeblocks, steps_per_timeblock=steps_per_timeblock,
                     storage='memory', compute_plan=compute_plan)
 
 prof = rp.CalculatorHydrodynamicProfile(configuration, 0)
