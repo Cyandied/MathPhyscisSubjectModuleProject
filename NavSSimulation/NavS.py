@@ -4,10 +4,10 @@ import matplotlib.pyplot as plt
 #Based vague on: https://nbviewer.org/github/barbagroup/CFDPython/blob/master/lessons/15_Step_12.ipynb
 
 
-nx = 21
-ny = 21
+nx = 41
+ny = 41
 
-nt = 500
+nt = 100
 
 widthOfChannel = 6
 
